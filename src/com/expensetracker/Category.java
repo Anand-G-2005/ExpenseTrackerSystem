@@ -1,0 +1,47 @@
+package com.expensetracker;
+
+public class Category {
+    private int id;
+    private String name;
+
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toFileString() {
+        return id + "|" + name;
+    }
+
+    public static Category fromFileString(String line) {
+        String[] parts = line.split("\\|", -1);
+
+        if (parts.length != 2) {
+            return null;
+        }
+
+        try {
+            int id = Integer.parseInt(parts[0]);
+            return new Category(id, parts[1]);
+        } catch (NumberFormatException exception) {
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + name;
+    }
+}
